@@ -1,0 +1,6 @@
+# Sample Audit Rules
+# Monitor all sudo commands
+-a always,exit -F path=/usr/bin/sudo -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+
+# Monitor Solana key access
+-w /var/lib/solana/keys/ -p wa -k solana_keys

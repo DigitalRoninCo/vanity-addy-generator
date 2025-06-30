@@ -1,0 +1,4 @@
+# Key Handles Configuration
+default_hsm_slot = 0
+auto_renew_certificates = yes
+key_cache_size = 1024
