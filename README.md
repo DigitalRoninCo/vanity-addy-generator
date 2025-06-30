@@ -1,6 +1,6 @@
 # Vanity Address Generator
 
-This repository contains an experimental setup for generating Solana vanity addresses with GPU acceleration. It also provides a minimal framework for recording wipe compliance information and database migrations.
+This repository contains a minimal implementation of a Solana vanity wallet generator.  A GPU worker searches for matching public keys while a simple API records wipe compliance information and database migrations.  The directories mirror a larger deployment where a backend job manager and smart contract coordinate GPU nodes.
 
 ## Prerequisites
 
@@ -69,4 +69,18 @@ export SOLANA_RPC=https://api.mainnet-beta.solana.com
 ```
 
 Make sure to export or define any additional environment variables required by your local setup before running the components.
+
+### GPU Node Variables
+
+The GPU vanity generator uses the following variables. They can be placed in the `.env` file or exported before starting the worker:
+
+| Variable | Purpose |
+|----------|---------|
+| `CUDA_VISIBLE_DEVICES` | GPU device IDs to use (e.g. `0,1`) |
+| `GRPC_PORT` | Port where the worker exposes its gRPC service |
+| `PERSISTENCE_PATH` | Directory for checkpoint files |
+| `MAX_SEARCH_TIME` | Max search duration in seconds |
+| `CHECKPOINT_INTERVAL` | Autosave interval for checkpoints |
+| `SOLANA_KEYGEN_PATH` | Path to `solana-keygen` binary |
+| `TEMP_LOG` | File for GPU temperature logs |
 
