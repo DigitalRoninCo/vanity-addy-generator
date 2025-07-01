@@ -36,6 +36,14 @@ This repository contains a simplified prototype used to experiment with generati
    npm install
    ```
 
+   You can also run the shorthand script:
+
+   ```bash
+   npm run setup
+   ```
+
+   **Note:** make sure the dependencies are installed before running the tests.
+
    Run the tests using:
 
    ```bash

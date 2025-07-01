@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "setup": "npm install",
     "test": "jest",
     "dev": "next dev",
     "build": "next build",
