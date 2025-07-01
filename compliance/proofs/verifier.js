@@ -1,5 +1,7 @@
 const { Connection } = require('@solana/web3.js');
 
+const DEFAULT_RPC = 'https://api.mainnet-beta.solana.com';
+
 /**
  * Verify that the supplied proof matches on-chain transaction data.
  * This simplistic implementation fetches the transaction and checks
@@ -11,7 +13,8 @@ const { Connection } = require('@solana/web3.js');
  * @returns {Promise<boolean>} True if the proof matches the transaction
  */
 async function verifyProof(txId, proof) {
-  const conn = new Connection(process.env.SOLANA_RPC || '');
+  const rpc = process.env.SOLANA_RPC || DEFAULT_RPC;
+  const conn = new Connection(rpc);
   const tx = await conn.getTransaction(txId);
   if (!tx) {
     throw new Error('Transaction not found');
