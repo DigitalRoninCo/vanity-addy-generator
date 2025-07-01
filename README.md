@@ -65,10 +65,20 @@ This repository contains a simplified prototype used to experiment with generati
 ## Database configuration
 
 Diesel helpers such as `run_migrations` expect a PostgreSQL connection string.
-Set the `DATABASE_URL` environment variable or add a `.env` file containing:
+Set the `DATABASE_URL` environment variable. You can also provide a `.env`
+file that includes your database connection and JWT secret values.
+
+## Wipe API authentication
+
+The wipe endpoint (`DELETE /api/compliance/wipe`) expects a JWT in the
+`Authorization` header. Tokens are verified using the `JWT_SECRET`
+environment variable, so it must be set for authentication to work.
+
+Add both variables to your `.env` file when running locally:
 
 ```
 DATABASE_URL=postgres://user:password@localhost/dbname
+JWT_SECRET=your-secret-value
 ```
 
 ## How it fits together
