@@ -69,3 +69,7 @@ This repository contains a simplified prototype used to experiment with generati
 - The **Docker setup** packages these pieces together and provides an environment capable of running GPU code.  Building the image copies the repository contents and marks `runpod-start.sh` as the container entry point.  This entry point configures the GPU and executes the external CUDA based vanity address generator alongside the Node utilities.
 
 This repository serves as a minimal demonstration of how Rust on-chain programs, Node.js helpers and a Docker based GPU workflow can be combined for compliance oriented address generation tasks.
+
+## Backend API (FastAPI)
+
+A simple FastAPI application is located in `backend`. Run it with `uvicorn backend.main:app` after setting the `REDIS_URL` environment variable. The `/api/vanity/submit` endpoint enqueues a job and `/api/vanity/status/{id}` reports progress.
