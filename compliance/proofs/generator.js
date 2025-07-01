@@ -3,13 +3,16 @@
 // lightweight we simply mock out those parts.
 const { Connection } = require('@solana/web3.js');
 
+const DEFAULT_RPC = 'https://api.mainnet-beta.solana.com';
+
 async function generatePDF(tx) {
   // Pretend we generated a PDF from the transaction data.
   return `PDF:${tx}`;
 }
 
 async function generateProof(txId) {
-  const conn = new Connection(process.env.SOLANA_RPC || '');
+  const rpc = process.env.SOLANA_RPC || DEFAULT_RPC;
+  const conn = new Connection(rpc);
   const tx = await conn.getTransaction(txId);
   return {
     txData: tx,
