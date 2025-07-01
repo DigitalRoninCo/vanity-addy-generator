@@ -17,6 +17,7 @@ This repository contains a simplified prototype used to experiment with generati
 - `scripts` – Helper scripts including `build-docker.sh` used to build the Docker image.
 - `runpod-start.sh` – Entry point executed inside the container. It configures the GPU and launches the vanity address generator binary.
 - `Dockerfile` – Builds a Node based image and runs `runpod-start.sh` by default.
+- `src` – Minimal Next.js app containing the `Home` component and related UI logic.
 
 ## Prerequisites
 
