@@ -60,7 +60,7 @@ This repository contains a simplified prototype used to experiment with generati
    docker run --gpus all vanity-addy:latest
    ```
 
-  When the container starts it executes `runpod-start.sh` which configures the NVIDIA driver, launches a monitoring script located at `/app/controller/monitor.py` and finally starts the GPU based `vanity` binary located at `/app/src/cuda/vanity`.
+When the container starts it executes `runpod-start.sh` which configures the NVIDIA driver, launches a monitoring script located at `/app/controller/monitor.py` and finally starts the GPU based `vanity` binary located at `/app/src/cuda/vanity`.
 
 ## Database configuration
 
@@ -69,6 +69,20 @@ Set the `DATABASE_URL` environment variable or add a `.env` file containing:
 
 ```
 DATABASE_URL=postgres://user:password@localhost/dbname
+```
+
+## Helper scripts
+
+The `scripts` directory contains additional helper utilities:
+
+- `deploy.sh` – deploys the Solana program using the Anchor CLI.
+- `monitor-cost.sh` – runs the GPU monitoring tool located in `controller/monitor.py`.
+
+Run them with:
+
+```bash
+./scripts/deploy.sh        # deploy the program
+./scripts/monitor-cost.sh  # start GPU usage logging
 ```
 
 ## How it fits together
