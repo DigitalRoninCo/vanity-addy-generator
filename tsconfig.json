@@ -4,8 +4,13 @@
     "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
+    "jsx": "react-jsx",
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["app/*", "src/*"]
+    }
   },
-  "include": ["app/**/*.ts", "tests/**/*.ts"]
+  "include": ["app/**/*.ts", "src/**/*", "tests/**/*.ts"]
 }
