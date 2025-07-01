@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "Vanity GPU generator stub"
+echo "Args: $@"

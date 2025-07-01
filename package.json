@@ -1,0 +1,9 @@
+{
+  "name": "vanity-addy-generator",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "node --version && echo 'vanity generator container'",
+    "test": "node --test"
+  }
+}
