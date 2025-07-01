@@ -42,7 +42,13 @@ This repository contains a simplified prototype used to experiment with generati
    npm test
    ```
 
-2. Build the Solana program:
+2. Install Python dependencies for the backend:
+
+   ```bash
+   pip install -r backend/requirements.txt
+   ```
+
+3. Build the Solana program:
 
    ```bash
    cargo build --manifest-path app/programs/src/Cargo.toml
@@ -50,7 +56,7 @@ This repository contains a simplified prototype used to experiment with generati
 
    The resulting program binary can then be deployed using your usual Anchor or Solana tooling.
 
-3. Build the Docker image. The provided script tags the image as `vanity-addy:latest` by default:
+4. Build the Docker image. The provided script tags the image as `vanity-addy:latest` by default:
 
    ```bash
    ./scripts/build-docker.sh
@@ -58,7 +64,7 @@ This repository contains a simplified prototype used to experiment with generati
 
    Alternatively you may run `docker build -t vanity-addy:latest .` manually.
 
-4. Run the image (requires GPU access):
+5. Run the image (requires GPU access):
 
    ```bash
    docker run --gpus all vanity-addy:latest
