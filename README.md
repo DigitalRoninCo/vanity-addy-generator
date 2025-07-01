@@ -1,3 +1,4 @@
+
 # Solana Vanity Address Generator
 
 ## Project Overview
@@ -88,3 +89,8 @@ Set these variables before launching the GPU worker:
 | `CHECKPOINT_INTERVAL` | Autosave interval |
 | `SOLANA_KEYGEN_PATH` | Path to `solana-keygen` |
 | `TEMP_LOG` | GPU temperature log |
+=======
+# Vanity Address Generator
+
+This repository contains a collection of experiments around Solana vanity address generation and data wipe utilities.
+
