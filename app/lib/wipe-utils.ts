@@ -1,5 +1,8 @@
 // Basic implementation - adjust as needed
-export function initiateWipe() {
-    console.log("Wipe initiated");
-    // Add actual wipe logic here
-  }
+export async function initiateWipe(userId: string) {
+  console.log(`Wipe initiated for ${userId}`);
+  // TODO: add actual wipe logic here
+  return {
+    txSignature: "dummy-signature"
+  };
+}
