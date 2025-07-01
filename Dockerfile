@@ -1,6 +1,11 @@
 FROM node:18
 WORKDIR /app
-COPY package*.json ./
-RUN npm install  # ✅ Install dependencies at build time
+
+# Copy the entire repository. The project currently does not rely on a
+# Node.js package manifest so we skip installing npm dependencies.
 COPY . .
-CMD ["npm", "start"]  # ✅ Single CMD for runtime
+
+# Ensure our start script is executable and run it by default.
+RUN chmod +x runpod-start.sh
+
+CMD ["./runpod-start.sh"]
