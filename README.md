@@ -27,6 +27,7 @@ This repository contains a simplified prototype used to experiment with generati
 - **Node.js** 18 or newer and `npm` for running the tests and API scripts.
 - **Rust** toolchain (stable) for building the on-chain program located in `app/programs/src`.
 - **Docker** for packaging and running the GPU based generator.
+- **Python** 3.11 or newer for the FastAPI backend. Install dependencies from `backend/requirements.txt`.
 
 ## Building and running
 
