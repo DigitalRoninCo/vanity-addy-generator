@@ -62,6 +62,15 @@ This repository contains a simplified prototype used to experiment with generati
 
   When the container starts it executes `runpod-start.sh` which configures the NVIDIA driver, launches a monitoring script located at `/app/controller/monitor.py` and finally starts the GPU based `vanity` binary located at `/app/src/cuda/vanity`.
 
+## Database configuration
+
+Diesel helpers such as `run_migrations` expect a PostgreSQL connection string.
+Set the `DATABASE_URL` environment variable or add a `.env` file containing:
+
+```
+DATABASE_URL=postgres://user:password@localhost/dbname
+```
+
 ## How it fits together
 
 - The **Rust program** in `app/programs/src` defines the on-chain instruction `store_wipe_proof`.  It serializes a `WipeProof` struct to the beginning of a Solana account so that a record of the wipe can be stored permanently.
