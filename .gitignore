@@ -1,0 +1,23 @@
+# Node dependencies
+node_modules/
+
+# Build outputs
+/dist/
+/build/
+/coverage/
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# Rust target directory
+target/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+
