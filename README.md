@@ -3,12 +3,6 @@
 This repository contains scripts for launching a GPU-based vanity address generator.
 The `runpod-start.sh` script initializes GPU settings, starts a monitoring process,
 and runs the generator located in `src/cuda/vanity`.
-=======
--codebase-section
-# vanity-addy-generator
-
-This repository will contain tools for generating vanity cryptocurrency addresses.
-# Vanity Addy Generator
 
 This repository contains a simplified prototype used to experiment with generating vanity cryptocurrency addresses while storing compliance information on the Solana blockchain.  The project is split across a small Rust program and several Node.js utilities and is intended to be run inside a Docker container.
 
@@ -48,7 +42,13 @@ This repository contains a simplified prototype used to experiment with generati
    npm test
    ```
 
-2. Build the Solana program:
+2. Install Python dependencies for the backend:
+
+   ```bash
+   pip install -r backend/requirements.txt
+   ```
+
+3. Build the Solana program:
 
    ```bash
    cargo build --manifest-path app/programs/src/Cargo.toml
@@ -56,7 +56,7 @@ This repository contains a simplified prototype used to experiment with generati
 
    The resulting program binary can then be deployed using your usual Anchor or Solana tooling.
 
-3. Build the Docker image. The provided script tags the image as `vanity-addy:latest` by default:
+4. Build the Docker image. The provided script tags the image as `vanity-addy:latest` by default:
 
    ```bash
    ./scripts/build-docker.sh
@@ -64,7 +64,7 @@ This repository contains a simplified prototype used to experiment with generati
 
    Alternatively you may run `docker build -t vanity-addy:latest .` manually.
 
-4. Run the image (requires GPU access):
+5. Run the image (requires GPU access):
 
    ```bash
    docker run --gpus all vanity-addy:latest
@@ -103,6 +103,4 @@ This repository serves as a minimal demonstration of how Rust on-chain programs,
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
-=======
-This repository serves as a minimal demonstration of how Rust on-chain programs, Node.js helpers and a Docker based GPU workflow can be combined for compliance oriented address generation tasks mainmain
 

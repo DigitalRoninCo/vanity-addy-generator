@@ -17,10 +17,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-=======
-#!/bin/bash
-# Placeholder for CUDA vanity address generator
-# In a real implementation this would execute a compiled GPU binary.
-echo "Starting placeholder vanity generator with args: $@"
-# Simulate work
-sleep 5
