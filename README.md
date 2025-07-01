@@ -62,14 +62,29 @@ This repository contains a simplified prototype used to experiment with generati
 
   When the container starts it executes `runpod-start.sh` which configures the NVIDIA driver, launches a monitoring script located at `/app/controller/monitor.py` and finally starts the GPU based `vanity` binary located at `/app/src/cuda/vanity`.
 
+## Database configuration
+
+Diesel helpers such as `run_migrations` expect a PostgreSQL connection string.
+Set the `DATABASE_URL` environment variable. You can also provide a `.env`
+file that includes your database connection and JWT secret values.
+
+## Wipe API authentication
+
+The wipe endpoint (`DELETE /api/compliance/wipe`) expects a JWT in the
+`Authorization` header. Tokens are verified using the `JWT_SECRET`
+environment variable, so it must be set for authentication to work.
+
+Add both variables to your `.env` file when running locally:
+
+```
+DATABASE_URL=postgres://user:password@localhost/dbname
+JWT_SECRET=your-secret-value
+```
+
 ## How it fits together
 
 - The **Rust program** in `app/programs/src` defines the on-chain instruction `store_wipe_proof`.  It serializes a `WipeProof` struct to the beginning of a Solana account so that a record of the wipe can be stored permanently.
 - The **Node scripts** act as a very light API layer and testing harness.  The API route at `app/api/compliance/wipe.ts` calls `initiateWipe`, which would in a full implementation invoke the Solana program above to record the wipe.  The scripts under `compliance/proofs` demonstrate fetching a transaction and rendering a proof document.
 - The **Docker setup** packages these pieces together and provides an environment capable of running GPU code.  Building the image copies the repository contents and marks `runpod-start.sh` as the container entry point.  This entry point configures the GPU and executes the external CUDA based vanity address generator alongside the Node utilities.
 
-This repository serves as a minimal demonstration of how Rust on-chain programs, Node.js helpers and a Docker based GPU workflow can be combined for compliance oriented address generation tasks.
-
-## Backend API (FastAPI)
-
-A simple FastAPI application is located in `backend`. Run it with `uvicorn backend.main:app` after setting the `REDIS_URL` environment variable. The `/api/vanity/submit` endpoint enqueues a job and `/api/vanity/status/{id}` reports progress.
+This repository serves as a minimal demonstration of how Rust on-chain programs, Node.js helpers and a Docker based GPU workflow can be combined for compliance oriented address generation tasks.>>>>>>> main
