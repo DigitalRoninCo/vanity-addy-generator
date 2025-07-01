@@ -1,0 +1,71 @@
+body {
+  background: #0d1117;
+  color: #c9d1d9;
+  font-family: sans-serif;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #ff00cc, #3333ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-btn {
+  background: #111;
+  border: 1px solid #0ff;
+  color: #0ff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  box-shadow: 0 0 8px #0ff;
+  transition: box-shadow 0.3s;
+}
+.glow-btn:hover {
+  box-shadow: 0 0 16px #0ff;
+}
+
+.card {
+  background: #161b22;
+  border: 1px solid #30363d;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
+}
+
+.progress-container {
+  width: 100%;
+  background: #30363d;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.progress-fill {
+  background: linear-gradient(90deg, #0ff, #f0f);
+  height: 100%;
+  transition: width 0.3s;
+}
+
+.tier-selector {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.tier-button {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background: #111;
+  color: #0ff;
+  cursor: pointer;
+}
+.tier-button.active {
+  background: #0ff;
+  color: #111;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+.text-xs {
+  font-size: 12px;
+}
