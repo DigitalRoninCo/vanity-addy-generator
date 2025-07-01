@@ -1,0 +1,19 @@
+{
+  "name": "vanity-addy-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.0.3",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3"
+  }
+}
