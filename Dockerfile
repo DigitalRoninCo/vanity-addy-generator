@@ -6,6 +6,7 @@ WORKDIR /app
 COPY . .
 
 # Ensure our start script is executable and run it by default.
-RUN chmod +x runpod-start.sh
+RUN chmod +x runpod-start.sh \
+    && chmod +x src/cuda/vanity
 
 CMD ["./runpod-start.sh"]
