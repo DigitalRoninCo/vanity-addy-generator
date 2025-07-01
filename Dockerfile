@@ -1,11 +1,15 @@
 FROM node:18
 WORKDIR /app
 
-# Copy the entire repository. The project currently does not rely on a
-# Node.js package manifest so we skip installing npm dependencies.
+# Install Node.js dependencies first so they can be cached between builds
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# Copy the rest of the repository
 COPY . .
 
 # Ensure our start script is executable and run it by default.
-RUN chmod +x runpod-start.sh
+RUN chmod +x runpod-start.sh \
+    && chmod +x src/cuda/vanity
 
 CMD ["./runpod-start.sh"]
