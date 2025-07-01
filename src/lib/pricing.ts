@@ -1,12 +1,12 @@
-export type Tier = 'basic' | 'standard' | 'premium';
+export type Tier = 'standard' | 'priority' | 'turbo';
 
-const multipliers: Record<Tier, number> = {
-  basic: 1,
-  standard: 2,
-  premium: 3,
+const extras: Record<Tier, number> = {
+  standard: 0,
+  priority: 0.05,
+  turbo: 0.15,
 };
 
 export function calculatePrice(pattern: string, tier: Tier): number {
   const base = pattern.length * 10;
-  return base * multipliers[tier];
+  return base + extras[tier];
 }

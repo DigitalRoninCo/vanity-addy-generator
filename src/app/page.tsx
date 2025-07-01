@@ -2,13 +2,12 @@
 
 import React, { useState } from 'react';
 import ProgressBar from '../components/ProgressBar';
+import TierSelector from '../components/TierSelector';
 import { calculatePrice, Tier } from '../lib/pricing';
-
-const tiers: Tier[] = ['basic', 'standard', 'premium'];
 
 export default function Home() {
   const [pattern, setPattern] = useState('');
-  const [tier, setTier] = useState<Tier>('basic');
+  const [tier, setTier] = useState<Tier>('standard');
   const [progress, setProgress] = useState(0);
 
   const price = calculatePrice(pattern, tier);
@@ -38,22 +37,7 @@ export default function Home() {
           />
         </label>
       </div>
-      <div style={{ marginTop: 12 }}>
-        <label>
-          Tier:
-          <select
-            value={tier}
-            onChange={(e) => setTier(e.target.value as Tier)}
-            style={{ marginLeft: 8 }}
-          >
-            {tiers.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
+      <TierSelector tier={tier} setTier={setTier} />
       <div style={{ marginTop: 12 }}>Price: ${price.toFixed(2)}</div>
       <button style={{ marginTop: 12 }} onClick={handleSearch}>
         Start Search
