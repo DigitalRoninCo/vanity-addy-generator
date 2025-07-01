@@ -1,0 +1,16 @@
+# Retention Policies
+data_classes:
+  wallet_keys:
+    active_ttl: 30d
+    cold_ttl: 180d
+    wipe_method: nist80088_clear
+
+  redis_cache:
+    active_ttl: 7d
+    wipe_method: crypto_shred
+
+# Compliance Standards
+standards:
+  - gdpr_article17
+  - ccpa
+  - sox_404
