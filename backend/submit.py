@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-import uuid
-from .redis_client import get_redis
+from .redis_jobs import submit_job
 
 router = APIRouter()
 
@@ -12,7 +11,9 @@ class SubmitRequest(BaseModel):
 
 @router.post('/vanity/submit')
 def submit(req: SubmitRequest):
-    job_id = str(uuid.uuid4())
-    r = get_redis()
-    r.hset(job_id, mapping={'status': 'queued'})
+    job_id = submit_job({
+        'pattern': req.pattern,
+        'tier': req.tier,
+        'address': req.address,
+    })
     return {'job_id': job_id}
