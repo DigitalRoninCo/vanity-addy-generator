@@ -5,12 +5,12 @@ export default function TierSelector({ tier, setTier }: { tier: string; setTier:
   return (
     <div className="mb-4">
       <label className="block mb-2">Speed Tier</label>
-      <div className="flex gap-2">
+      <div className="tier-selector">
         {['standard', 'priority', 'turbo'].map((t) => (
           <button
             key={t}
             onClick={() => setTier(t)}
-            className={`p-2 border rounded flex-1 ${tier === t ? 'bg-blue-100 border-blue-500' : ''}`}
+            className={`tier-button ${tier === t ? 'active' : ''}`}
           >
             <div className="font-bold">{t.charAt(0).toUpperCase() + t.slice(1)}</div>
             <div className="text-xs">
