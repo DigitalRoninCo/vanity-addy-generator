@@ -1,3 +1,7 @@
+-codebase-section
+# vanity-addy-generator
+
+This repository will contain tools for generating vanity cryptocurrency addresses.
 # Vanity Addy Generator
 
 This repository contains a simplified prototype used to experiment with generating vanity cryptocurrency addresses while storing compliance information on the Solana blockchain.  The project is split across a small Rust program and several Node.js utilities and is intended to be run inside a Docker container.
@@ -87,4 +91,4 @@ JWT_SECRET=your-secret-value
 - The **Node scripts** act as a very light API layer and testing harness.  The API route at `app/api/compliance/wipe.ts` calls `initiateWipe`, which would in a full implementation invoke the Solana program above to record the wipe.  The scripts under `compliance/proofs` demonstrate fetching a transaction and rendering a proof document.
 - The **Docker setup** packages these pieces together and provides an environment capable of running GPU code.  Building the image copies the repository contents and marks `runpod-start.sh` as the container entry point.  This entry point configures the GPU and executes the external CUDA based vanity address generator alongside the Node utilities.
 
-This repository serves as a minimal demonstration of how Rust on-chain programs, Node.js helpers and a Docker based GPU workflow can be combined for compliance oriented address generation tasks.>>>>>>> main
+This repository serves as a minimal demonstration of how Rust on-chain programs, Node.js helpers and a Docker based GPU workflow can be combined for compliance oriented address generation tasks main
