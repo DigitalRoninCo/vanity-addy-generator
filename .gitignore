@@ -1,0 +1,23 @@
+# Dependency directories
+node_modules/
+__pycache__/
+target/
+
+# Environment files
+.env
+.env.*
+
+# Logs
+*.log
+
+# Operating system files
+.DS_Store
+
+# Build output
+/dist/
+/build/
+
+# Optional lock files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
