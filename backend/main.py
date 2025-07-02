@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from grpc_client import generate_wallet_grpc
-from redis import redis_conn
+from .submit import router as submit_router
+from .status import router as status_router
 
 app = FastAPI()
 
@@ -14,17 +15,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(submit_router)
+app.include_router(status_router)
+
 @app.get("/")
 def root():
     return {"status": "OK"}
-
-@app.post("/submit")
-def submit_job():
-    # Example only
-    return {"job_id": "abc123"}
-
-@app.get("/status/{job_id}")
-def check_status(job_id: str):
-    # Check Redis for job status
-    result = redis_conn.get(job_id)
-    return {"job_id": job_id, "status": result or "pending"}
