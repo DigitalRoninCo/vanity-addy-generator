@@ -43,6 +43,9 @@ This repository contains a simplified prototype used to experiment with generati
    npm test
    ```
 
+   Copy `.env.example` to `.env` and set `NEXT_PUBLIC_PRODUCTION_URL` to the URL
+   of your backend (defaults to `http://localhost:8000`).
+
 2. Install Python dependencies for the backend:
 
    ```bash
