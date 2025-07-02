@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package wallet;
+
+message VanityRequest {
+  string pattern = 1;
+  string starts_with = 2;
+  string ends_with = 3;
+  bool case_sensitive = 4;
+}
+
+message VanityResponse {
+  string public_key = 1;
+  string secret_key = 2;
+  string match = 3;
+}
+
+service WalletGenerator {
+  rpc GenerateWallet (VanityRequest) returns (VanityResponse);
+}
