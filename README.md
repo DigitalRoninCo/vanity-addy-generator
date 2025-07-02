@@ -49,7 +49,18 @@ This repository contains a simplified prototype used to experiment with generati
    pip install -r backend/requirements.txt
    ```
 
-3. Build the Solana program:
+3. Launch the FastAPI backend. The server expects a running Redis instance and
+   uses the `REDIS_URL` environment variable to locate it. The database utilities
+   also rely on `DATABASE_URL` and authentication requires `JWT_SECRET`:
+
+   ```bash
+   REDIS_URL=redis://localhost:6379/0 \
+   DATABASE_URL=postgres://user:password@localhost/dbname \
+   JWT_SECRET=your-secret-value \
+   uvicorn backend.main:app
+   ```
+
+4. Build the Solana program:
 
    ```bash
    cargo build --manifest-path app/programs/src/Cargo.toml
@@ -57,7 +68,7 @@ This repository contains a simplified prototype used to experiment with generati
 
    The resulting program binary can then be deployed using your usual Anchor or Solana tooling.
 
-4. Build the Docker image. The provided script tags the image as `vanity-addy:latest` by default:
+5. Build the Docker image. The provided script tags the image as `vanity-addy:latest` by default:
 
    ```bash
    ./scripts/build-docker.sh
@@ -65,7 +76,7 @@ This repository contains a simplified prototype used to experiment with generati
 
    Alternatively you may run `docker build -t vanity-addy:latest .` manually.
 
-5. Run the image (requires GPU access):
+6. Run the image (requires GPU access):
 
    ```bash
    docker run --gpus all vanity-addy:latest
