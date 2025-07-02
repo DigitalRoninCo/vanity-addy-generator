@@ -71,7 +71,7 @@ This repository contains a simplified prototype used to experiment with generati
    docker run --gpus all vanity-addy:latest
    ```
 
-  When the container starts it executes `runpod-start.sh` which configures the NVIDIA driver, launches a monitoring script located at `/app/controller/monitor.py` and finally starts the GPU based `vanity` binary located at `/app/src/cuda/vanity`.
+  When the container starts it executes `runpod-start.sh` which configures the NVIDIA driver, launches a monitoring script located at `controller/monitor.py` and finally starts the GPU based `vanity` binary located at `src/cuda/vanity`.
 
 ## Database configuration
 
