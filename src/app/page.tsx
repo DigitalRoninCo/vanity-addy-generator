@@ -5,7 +5,7 @@ import ProgressBar from '../components/ProgressBar';
 import TierSelector from '../components/TierSelector';
 import LiveInfoPanel from '../components/LiveInfoPanel';
 import { calculatePrice, Tier } from '../lib/pricing';
-import { submitVanity, getStatus } from '../lib/api';
+import { submitVanity } from '../lib/api';
 import { useWallet } from '../components/WalletProvider';
 
 export default function Home() {
@@ -18,6 +18,7 @@ export default function Home() {
   const { publicKey } = useWallet();
 
   const price = calculatePrice(pattern, tier);
+  const wsBase = process.env.NEXT_PUBLIC_WS_URL || '';
 
   async function handleSearch() {
     setLoading(true);
@@ -28,21 +29,25 @@ export default function Home() {
       const address = publicKey ?? 'demo';
       const { job_id } = await submitVanity(pattern, tier, address);
       setStatus('Searching...');
-      let done = false;
-      while (!done) {
-        const data = await getStatus(job_id);
+      const ws = new WebSocket(`${wsBase}/ws/status/${job_id}`);
+      ws.onmessage = (ev) => {
+        const data = JSON.parse(ev.data);
+        setProgress(data.progress);
+        setStatus(data.status);
         if (data.status === 'complete') {
-          setStatus('Complete');
-          setProgress(1);
-          done = true;
-        } else {
-          await new Promise((r) => setTimeout(r, 1000));
+          ws.close();
+          setLoading(false);
         }
-      }
+      };
+      ws.onerror = () => {
+        setStatus('Error');
+        setLoading(false);
+      };
     } catch (e) {
       setStatus('Error');
-    } finally {
       setLoading(false);
+    } finally {
+      // loading state cleared when websocket finishes
     }
   }
 
