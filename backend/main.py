@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from grpc_client import generate_wallet_grpc
 from redis import redis_conn
+from backend.metrics import costs
 
 app = FastAPI()
 
@@ -13,6 +14,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(costs.router)
 
 @app.get("/")
 def root():
