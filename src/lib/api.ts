@@ -1,5 +1,7 @@
+const API_BASE = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+
 export async function submitVanity(pattern: string, tier: string, address: string) {
-  const res = await fetch('/api/vanity/submit', {
+  const res = await fetch(`${API_BASE}/api/vanity/submit`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ pattern, tier, address })
@@ -11,7 +13,7 @@ export async function submitVanity(pattern: string, tier: string, address: strin
 }
 
 export async function getStatus(jobId: string) {
-  const res = await fetch(`/api/vanity/status/${jobId}`);
+  const res = await fetch(`${API_BASE}/api/vanity/status/${jobId}`);
   if (!res.ok) {
     throw new Error('Failed to fetch status');
   }

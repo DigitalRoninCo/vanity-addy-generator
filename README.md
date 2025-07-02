@@ -43,6 +43,10 @@ This repository contains a simplified prototype used to experiment with generati
    npm test
    ```
 
+   Set `NEXT_PUBLIC_BACKEND_URL` to the base URL of the FastAPI server when
+   running the frontend locally. By default the value is empty which causes the
+   application to request the API at the same origin.
+
 2. Install Python dependencies for the backend:
 
    ```bash
