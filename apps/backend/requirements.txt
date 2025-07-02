@@ -1,0 +1,23 @@
+# Runtime dependencies
+fastapi
+uvicorn[standard]
+python-dotenv
+redis
+pydantic
+grpcio
+grpcio-tools
+protobuf
+
+# Testing + linting + formatting
+pytest
+httpx
+pytest-asyncio
+pytest-cov
+
+# Dev tools
+black
+flake8
+mypy
+isort
+pre-commit
+
