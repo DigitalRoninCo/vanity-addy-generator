@@ -4,7 +4,7 @@ from pydantic import BaseModel
 import grpc
 import wallet_pb2
 import wallet_pb2_grpc
-from redis import redis_conn
+from backend.redis import get_status
 
 app = FastAPI()
 
@@ -49,5 +49,5 @@ def submit_job(req: SubmitRequest):
 @app.get("/status/{job_id}")
 def check_status(job_id: str):
     # Check Redis for job status
-    result = redis_conn.get(job_id)
+    result = get_status(job_id)
     return {"job_id": job_id, "status": result or "pending"}
