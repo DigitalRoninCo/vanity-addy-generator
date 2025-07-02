@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from grpc_client import generate_wallet_grpc
-from redis import redis_conn
+from .grpc_client import generate_wallet_grpc
+from . import redis as redis_conn
 
 app = FastAPI()
 
