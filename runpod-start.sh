@@ -10,4 +10,3 @@ fi
 
 python controller/monitor.py &
 exec ./src/cuda/vanity --gpus 2
-
