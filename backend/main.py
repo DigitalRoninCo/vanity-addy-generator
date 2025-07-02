@@ -1,10 +1,18 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-
-from grpc_client import generate_wallet_grpc
+from pydantic import BaseModel
+import grpc
+import wallet_pb2
+import wallet_pb2_grpc
 from redis import redis_conn
 
 app = FastAPI()
+
+class SubmitRequest(BaseModel):
+    pattern: str = ""
+    starts_with: str = ""
+    ends_with: str = ""
+    case_sensitive: bool = True
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,9 +27,24 @@ def root():
     return {"status": "OK"}
 
 @app.post("/submit")
-def submit_job():
-    # Example only
-    return {"job_id": "abc123"}
+def submit_job(req: SubmitRequest):
+    try:
+        with grpc.insecure_channel("localhost:50051") as channel:
+            stub = wallet_pb2_grpc.WalletGeneratorStub(channel)
+            request = wallet_pb2.VanityRequest(
+                pattern=req.pattern,
+                starts_with=req.starts_with,
+                ends_with=req.ends_with,
+                case_sensitive=req.case_sensitive
+            )
+            response = stub.GenerateWallet(request)
+            return {
+                "public_key": response.public_key,
+                "secret_key": response.secret_key,
+                "match": response.match
+            }
+    except grpc.RpcError as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/status/{job_id}")
 def check_status(job_id: str):
