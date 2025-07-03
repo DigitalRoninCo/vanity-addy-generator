@@ -96,4 +96,3 @@ async def ws_status(websocket: WebSocket, job_id: str):
     # Check Redis for job status
     result = get_status(job_id)
     return {"job_id": job_id, "status": result or "pending"}
->>>
