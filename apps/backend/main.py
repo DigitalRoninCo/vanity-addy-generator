@@ -26,5 +26,3 @@ async def generate(pattern: str, starts_with: str = "", ends_with: str = "", cas
     result = generate_wallet_grpc(pattern, starts_with, ends_with, case_sensitive)
     return result   
 
-wallet = generate_wallet_grpc(starts_with="SoL")
-print(wallet)
