@@ -9,7 +9,5 @@ REDIS_PASSWORD = os.getenv("REDIS_PASSWORD")
 REDIS_TLS_CA = os.getenv("REDIS_TLS_CA")
 REDIS_TLS_CERT = os.getenv("REDIS_TLS_CERT")
 REDIS_TLS_KEY = os.getenv("REDIS_TLS_KEY")
-GPU_NODE_HOST="localhost"
-GPU_NODE_PORT=50051
 GPU_NODE_HOST = os.getenv("GPU_NODE_HOST", "localhost")
 GPU_NODE_PORT = int(os.getenv("GPU_NODE_PORT", 50051))
