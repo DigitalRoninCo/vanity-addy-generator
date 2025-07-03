@@ -7,6 +7,11 @@ import grpc
 import wallet_pb2
 import wallet_pb2_grpc
 
+
+from grpc_client import generate_wallet_grpc
+from redis import redis_conn
+from backend.metrics import costs
+
 from .redis_jobs import get_job, get_redis
 
 from backend.redis import get_status
@@ -14,6 +19,7 @@ from backend.redis import get_status
 
 from .grpc_client import generate_wallet_grpc
 from . import redis as redis_conn
+
 
 app = FastAPI()
 
@@ -30,6 +36,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(costs.router)
 
 @app.get("/")
 def root():
