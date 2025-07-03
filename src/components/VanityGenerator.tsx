@@ -1,3 +1,6 @@
+
+import React, { useState, useEffect } from "react";
+
 import { useState } from 'react';
 import { generateVanityKeypair, Keypair } from '../lib/solana';
 import { submitVanity } from '../lib/api';
@@ -8,7 +11,7 @@ export default function VanityGenerator() {
   const [loading, setLoading] = useState(false);
   const [jobId, setJobId] = useState<string | null>(null);
 
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 export default function VanityGenerator() {
   // State management
@@ -25,6 +28,13 @@ export default function VanityGenerator() {
   const [paymentMethod, setPaymentMethod] = useState("SOL");
 
 
+  // API integration state
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<{ public_key: string; secret_key: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const API_URL = process.env.NEXT_PUBLIC_PRODUCTION_URL || "";
+
   // Mocked stats
   const attemptsPerSec = speedTier === "turbo" ? 430000 : 180000;
   const gpu = speedTier === "turbo" ? "RTX 4090" : "Standard GPU";
@@ -32,6 +42,30 @@ export default function VanityGenerator() {
   const estTime = speedTier === "turbo" ? "1 min" : "2 min";
   const price = speedTier === "turbo" ? 1.2 : 0.7;
 
+
+  async function handleGenerate() {
+    setLoading(true);
+    setResult(null);
+    setError(null);
+    try {
+      const res = await fetch(`${API_URL}/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pattern }),
+      });
+      if (!res.ok) {
+        const text = await res.text();
+        setError(text || "Request failed");
+        return;
+      }
+      const data = await res.json();
+      setResult(data);
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
   const handleSubmit = async () => {
     try {
       const data = await submitVanity(prefix, 'standard', keypair?.publicKey || '');
@@ -171,7 +205,24 @@ export default function VanityGenerator() {
             </div>
           )}
 
-          <button className="w-full mt-3 md:mt-4 py-2 rounded-lg bg-cyan-400 text-gray-900 font-bold text-lg md:text-xl shadow-lg hover:bg-cyan-300 transition">GENERATE</button>
+          <button
+            onClick={handleGenerate}
+            disabled={loading}
+            className="w-full mt-3 md:mt-4 py-2 rounded-lg bg-cyan-400 text-gray-900 font-bold text-lg md:text-xl shadow-lg hover:bg-cyan-300 transition disabled:opacity-50"
+          >
+            {loading ? 'Generating...' : 'GENERATE'}
+          </button>
+
+          {result && (
+            <div className="mt-3 p-2 border border-cyan-400 rounded bg-gray-900 text-sm break-words">
+              <div>Public Key: <span className="text-cyan-300">{result.public_key}</span></div>
+              <div>Secret Key: <span className="text-cyan-300">{result.secret_key}</span></div>
+            </div>
+          )}
+
+          {error && (
+            <div className="mt-2 text-red-400 text-sm">{error}</div>
+          )}
 
           <div className="mt-2 md:mt-4 text-xs text-cyan-200">Keys are never stored. You control your wallet. <span className="underline cursor-pointer">Learn more</span></div>
 
