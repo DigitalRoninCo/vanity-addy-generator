@@ -24,4 +24,5 @@ async def status(job_id: str):
 @app.post("/generate")
 async def generate(pattern: str, starts_with: str = "", ends_with: str = "", case_sensitive: bool = True):
     result = generate_wallet_grpc(pattern, starts_with, ends_with, case_sensitive)
-    return result
+    return result   
+

@@ -43,6 +43,12 @@ This repository contains a simplified prototype used to experiment with generati
    npm test
    ```
 
+   Set `NEXT_PUBLIC_BACKEND_URL` to the base URL of the FastAPI server when
+   running the frontend locally. By default the value is empty which causes the
+   application to request the API at the same origin. If the WebSocket endpoint
+   is hosted separately, provide `NEXT_PUBLIC_WS_URL` with the base URL for
+   connecting via WebSocket.
+
 2. Install Python dependencies for the backend:
 
    ```bash
@@ -71,7 +77,7 @@ This repository contains a simplified prototype used to experiment with generati
    docker run --gpus all vanity-addy:latest
    ```
 
-  When the container starts it executes `runpod-start.sh` which configures the NVIDIA driver, launches a monitoring script located at `/app/controller/monitor.py` and finally starts the GPU based `vanity` binary located at `/app/src/cuda/vanity`.
+When the container starts it executes `runpod-start.sh` which configures the NVIDIA driver, launches a monitoring script located at `/app/controller/monitor.py` and finally starts the GPU based `vanity` binary located at `/app/src/cuda/vanity`.
 
 ## Database configuration
 
@@ -90,6 +96,20 @@ Add both variables to your `.env` file when running locally:
 ```
 DATABASE_URL=postgres://user:password@localhost/dbname
 JWT_SECRET=your-secret-value
+```
+
+## Helper scripts
+
+The `scripts` directory contains additional helper utilities:
+
+- `deploy.sh` – deploys the Solana program using the Anchor CLI.
+- `monitor-cost.sh` – runs the GPU monitoring tool located in `controller/monitor.py`.
+
+Run them with:
+
+```bash
+./scripts/deploy.sh        # deploy the program
+./scripts/monitor-cost.sh  # start GPU usage logging
 ```
 
 ## How it fits together
