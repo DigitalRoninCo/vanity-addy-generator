@@ -1,7 +1,11 @@
+
+import './globals.css';
+
 import '../styles/globals.css';
+
 import { Inter } from 'next/font/google';
 import { WalletProvider } from '../components/WalletProvider';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -10,7 +14,11 @@ export const metadata = {
 
   description: 'Search for custom Solana addresses',
 
+
+  description: 'Search for custom Solana addresses',
+
   description: 'Generate Solana vanity addresses',
+
 
 };
 
