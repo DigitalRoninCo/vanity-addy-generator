@@ -12,7 +12,7 @@ export default function ChatWindow() {
 
   const sendMessage = async () => {
     if (!input) return;
-    const newMessages = [...messages, { role: 'user', content: input }];
+    const newMessages: Message[] = [...messages, { role: 'user', content: input }];
     setMessages(newMessages);
     setInput('');
     setLoading(true);
