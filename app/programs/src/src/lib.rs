@@ -4,6 +4,9 @@ use anchor_lang::prelude::*;
 declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkgE9DuAyY29S");
 
 pub mod wipe;
+pub mod db;
+
+pub use db::establish_connection;
 
 pub use wipe::*;
 

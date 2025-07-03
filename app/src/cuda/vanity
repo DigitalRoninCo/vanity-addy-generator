@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+import argparse
+import time
+
+
+def main():
+    parser = argparse.ArgumentParser(description="GPU Vanity Address Generator")
+    parser.add_argument('--gpus', type=int, default=1, help='Number of GPUs to use')
+    args = parser.parse_args()
+    print(f"Starting vanity generator on {args.gpus} GPU(s)")
+    # Placeholder for GPU computation
+    for i in range(3):
+        print(f"Generating... step {i+1}")
+        time.sleep(1)
+    print("Vanity address generation complete")
+
+
+if __name__ == "__main__":
+    main()
