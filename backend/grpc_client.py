@@ -1,4 +1,12 @@
 import grpc
+import os
+import sys
+
+# Add path to the generated gRPC modules located under apps/gpu-node
+grpc_module_path = os.path.join(os.path.dirname(__file__), "..", "apps", "gpu-node")
+if grpc_module_path not in sys.path:
+    sys.path.append(grpc_module_path)
+
 import wallet_pb2
 import wallet_pb2_grpc
 
