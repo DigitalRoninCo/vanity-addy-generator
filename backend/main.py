@@ -1,10 +1,16 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import asyncio
+import json
 import grpc
 import wallet_pb2
 import wallet_pb2_grpc
+
+from .redis_jobs import get_job, get_redis
+
 from backend.redis import get_status
+
 
 app = FastAPI()
 
@@ -48,6 +54,35 @@ def submit_job(req: SubmitRequest):
 
 @app.get("/status/{job_id}")
 def check_status(job_id: str):
+
+    data = get_job(job_id)
+    if data is None:
+        raise HTTPException(status_code=404, detail="Job not found")
+    return data
+
+
+@app.websocket("/ws/status/{job_id}")
+async def ws_status(websocket: WebSocket, job_id: str):
+    await websocket.accept()
+    r = get_redis()
+    pubsub = r.pubsub()
+    channel = f"progress:{job_id}"
+    pubsub.subscribe(channel)
+    job = get_job(job_id)
+    if job:
+        await websocket.send_text(json.dumps({"status": job.get("status"), "progress": float(job.get("progress", 0))}))
+    try:
+        while True:
+            message = pubsub.get_message(ignore_subscribe_messages=True, timeout=1)
+            if message and message.get("type") == "message":
+                await websocket.send_text(message["data"])
+            await asyncio.sleep(0.1)
+    except WebSocketDisconnect:
+        pass
+    finally:
+        pubsub.close()
+
     # Check Redis for job status
     result = get_status(job_id)
     return {"job_id": job_id, "status": result or "pending"}
+>>>
