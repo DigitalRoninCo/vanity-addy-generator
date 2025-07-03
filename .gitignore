@@ -25,3 +25,8 @@ target/
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+
+# Miscellaneous files
+/frontend
+!frontend/
+/=1.73.1
