@@ -1,12 +1,13 @@
 'use client';
 import React from 'react';
+import { Tier } from '../lib/pricing';
 
-export default function TierSelector({ tier, setTier }: { tier: string; setTier: (t: string) => void }) {
+export default function TierSelector({ tier, setTier }: { tier: Tier; setTier: (t: Tier) => void }) {
   return (
     <div className="mb-4">
       <label className="block mb-2">Speed Tier</label>
       <div className="tier-selector">
-        {['standard', 'priority', 'turbo'].map((t) => (
+        {(['standard', 'priority', 'turbo'] as Tier[]).map((t) => (
           <button
             key={t}
             onClick={() => setTier(t)}
