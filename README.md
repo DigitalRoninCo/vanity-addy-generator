@@ -43,11 +43,16 @@ This repository contains a simplified prototype used to experiment with generati
    npm test
    ```
 
+
+   Copy `.env.example` to `.env` and set `NEXT_PUBLIC_PRODUCTION_URL` to the URL
+   of your backend (defaults to `http://localhost:8000`).
+
    Set `NEXT_PUBLIC_BACKEND_URL` to the base URL of the FastAPI server when
    running the frontend locally. By default the value is empty which causes the
    application to request the API at the same origin. If the WebSocket endpoint
    is hosted separately, provide `NEXT_PUBLIC_WS_URL` with the base URL for
    connecting via WebSocket.
+
 
 2. Install Python dependencies for the backend:
 
