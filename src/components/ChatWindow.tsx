@@ -12,11 +12,14 @@ export default function ChatWindow() {
 
   const sendMessage = async () => {
     if (!input) return;
-    const newMessages = [...messages, { role: 'user', content: input }];
+    const newMessages: Message[] = [...messages, { role: 'user', content: input }];
     setMessages(newMessages);
     setInput('');
     setLoading(true);
-    const res = await fetch('/api/chat', {
+    const base = process.env.NODE_ENV === 'production'
+      ? process.env.NEXT_PUBLIC_PRODUCTION_URL || ''
+      : '';
+    const res = await fetch(`${base}/api/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: newMessages }),
