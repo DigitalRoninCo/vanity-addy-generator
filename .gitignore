@@ -18,6 +18,9 @@ target/
 /dist/
 /build/
 
+# Next.js build output
+.next/
+
 # Optional lock files
 package-lock.json
 pnpm-lock.yaml
