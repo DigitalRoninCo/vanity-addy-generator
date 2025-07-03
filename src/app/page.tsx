@@ -1,5 +1,11 @@
 'use client';
 
+import React from 'react';
+import DRVanityGenerator from '../components/DRVanityGenerator';
+
+export default function Home() {
+  return <DRVanityGenerator />;
+
 import React, { useState } from 'react';
 import ProgressBar from '../components/ProgressBar';
 import TierSelector from '../components/TierSelector';
