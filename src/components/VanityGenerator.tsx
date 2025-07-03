@@ -1,3 +1,13 @@
+import { useState } from 'react';
+import { generateVanityKeypair, Keypair } from '../lib/solana';
+import { submitVanity } from '../lib/api';
+
+export default function VanityGenerator() {
+  const [prefix, setPrefix] = useState('');
+  const [keypair, setKeypair] = useState<Keypair | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [jobId, setJobId] = useState<string | null>(null);
+
 import React, { useState } from "react";
 
 export default function VanityGenerator() {
@@ -14,6 +24,7 @@ export default function VanityGenerator() {
   const [maxAttempts, setMaxAttempts] = useState(1000000);
   const [paymentMethod, setPaymentMethod] = useState("SOL");
 
+
   // Mocked stats
   const attemptsPerSec = speedTier === "turbo" ? 430000 : 180000;
   const gpu = speedTier === "turbo" ? "RTX 4090" : "Standard GPU";
@@ -21,7 +32,34 @@ export default function VanityGenerator() {
   const estTime = speedTier === "turbo" ? "1 min" : "2 min";
   const price = speedTier === "turbo" ? 1.2 : 0.7;
 
+  const handleSubmit = async () => {
+    try {
+      const data = await submitVanity(prefix, 'standard', keypair?.publicKey || '');
+      setJobId(data.jobId || data.job_id);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
+
+    <div>
+      <h2>Vanity Address Generator</h2>
+      <input
+        type="text"
+        value={prefix}
+        placeholder="Enter prefix"
+        onChange={(e) => setPrefix(e.target.value)}
+      />
+      <button onClick={handleGenerate} disabled={loading || !prefix}>
+        {loading ? 'Generating...' : 'Generate'}
+      </button>
+      <button onClick={handleSubmit} disabled={!prefix}>Submit</button>
+      {jobId && <p>Job ID: {jobId}</p>}
+      {keypair && (
+        <pre>{keypair.publicKey}</pre>
+      )}
+
     <div className="min-h-screen bg-[url('/grainy-metal-texture.png')] bg-dark-gray text-white flex flex-col items-center p-2 md:p-8">
       {/* Header / Logo */}
       <div className="flex flex-col items-center mb-4 md:mb-8">

@@ -6,7 +6,11 @@ import json
 import grpc
 import wallet_pb2
 import wallet_pb2_grpc
+
 from .redis_jobs import get_job, get_redis
+
+from backend.redis import get_status
+
 
 app = FastAPI()
 
@@ -50,6 +54,7 @@ def submit_job(req: SubmitRequest):
 
 @app.get("/status/{job_id}")
 def check_status(job_id: str):
+
     data = get_job(job_id)
     if data is None:
         raise HTTPException(status_code=404, detail="Job not found")
@@ -76,3 +81,8 @@ async def ws_status(websocket: WebSocket, job_id: str):
         pass
     finally:
         pubsub.close()
+
+    # Check Redis for job status
+    result = get_status(job_id)
+    return {"job_id": job_id, "status": result or "pending"}
+>>>
