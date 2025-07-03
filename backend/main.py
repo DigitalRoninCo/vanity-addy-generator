@@ -7,8 +7,10 @@ import grpc
 import wallet_pb2
 import wallet_pb2_grpc
 
-
 from grpc_client import generate_wallet_grpc
+
+from .submit import router as submit_router
+from .status import router as status_router
 from redis import redis_conn
 from backend.metrics import costs
 
@@ -19,6 +21,7 @@ from backend.redis import get_status
 
 from .grpc_client import generate_wallet_grpc
 from . import redis as redis_conn
+
 
 
 app = FastAPI()
@@ -37,11 +40,18 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+app.include_router(submit_router)
+app.include_router(status_router)
+
 app.include_router(costs.router)
+
 
 @app.get("/")
 def root():
     return {"status": "OK"}
+
+
 
 @app.post("/submit")
 def submit_job(req: SubmitRequest):
@@ -96,4 +106,4 @@ async def ws_status(websocket: WebSocket, job_id: str):
     # Check Redis for job status
     result = get_status(job_id)
     return {"job_id": job_id, "status": result or "pending"}
->>>
+
