@@ -1,0 +1,4 @@
+tests/
+scripts/monitoring/
+*.log
+.DS_Store
