@@ -7,7 +7,11 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Vanity Address Generator',
+
   description: 'Search for custom Solana addresses',
+
+  description: 'Generate Solana vanity addresses',
+
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
