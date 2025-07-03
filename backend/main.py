@@ -12,6 +12,9 @@ from .redis_jobs import get_job, get_redis
 from backend.redis import get_status
 
 
+from .grpc_client import generate_wallet_grpc
+from . import redis as redis_conn
+
 app = FastAPI()
 
 class SubmitRequest(BaseModel):
